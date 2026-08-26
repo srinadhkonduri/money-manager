@@ -1,4 +1,5 @@
 {
+    you just need to remember the email and password
     "user": {
         "id": 2,
         "fullName": "srinadh",
@@ -9,5 +10,6 @@
         "updatedAt": "2026-08-25T13:12:20.940692"
     },
     "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzcmluYWRoa29uZHVyaTIwMDNAZ21haWwuY29tIiwiaWF0IjoxNzg3NjQ0MDA0LCJleHAiOjE3ODc3MzA0MDR9.VTgmsdAMbEz-RVsoP9qvN7Fy7zjmn7p7CUCQX7CE-AKX3FmzDAWrWuEj8wM4sM_O"
+    this token is changed every time and expires in one hour based on the expiration time in milliseconds.
 }
 

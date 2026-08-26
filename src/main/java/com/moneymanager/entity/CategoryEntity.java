@@ -1,6 +1,5 @@
 package com.moneymanager.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,29 +9,20 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "tbl_profiles")
-public class ProfileEntity {
+@Table(name = "tbl_categories")
+public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullName;
-
-    @Column(unique = true)
-    private String email;
-
-    private String password;
-
-    private String profileImageUrl;
+    private String name;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -41,15 +31,13 @@ public class ProfileEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private Boolean isActive;
-
-    private String activationToken;
+    private String type; // income or expense
 
 
-    @PrePersist
-    public void prePersist(){
-        if (this.isActive == null){
-            isActive = false;
-        }
-    }
+    private String icon;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id", nullable = false)
+    private ProfileEntity profile;
 }
