@@ -1,0 +1,13 @@
+{
+    "user": {
+        "id": 2,
+        "fullName": "srinadh",
+        "email": "srinadhkonduri2003@gmail.com",
+        "password": 12345,
+        "profileImageUrl": null,
+        "createdAt": "2026-08-25T13:09:54.981793",
+        "updatedAt": "2026-08-25T13:12:20.940692"
+    },
+    "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzcmluYWRoa29uZHVyaTIwMDNAZ21haWwuY29tIiwiaWF0IjoxNzg3NjQ0MDA0LCJleHAiOjE3ODc3MzA0MDR9.VTgmsdAMbEz-RVsoP9qvN7Fy7zjmn7p7CUCQX7CE-AKX3FmzDAWrWuEj8wM4sM_O"
+}
+
