@@ -1,7 +1,7 @@
 package com.moneymanager.repositories;
 
 import com.moneymanager.entity.ExpenseEntity;
-import org.springdoc.core.converters.models.Sort;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
