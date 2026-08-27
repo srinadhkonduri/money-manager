@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springdoc.core.converters.models.Sort;
 
 import java.time.LocalDate;
 
