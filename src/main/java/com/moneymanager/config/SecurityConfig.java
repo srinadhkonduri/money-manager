@@ -39,13 +39,13 @@ public class SecurityConfig {
         httpSecurity.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers(
-                                "/api/v1.0/status",
-                                "/api/v1.0/health",
-                                "/api/v1.0/register",
-                                "/api/v1.0/activate",
-                                "/api/v1.0/login",
-                                "/api/v1.0/swagger-ui/**",
-                                "/api/v1.0/v3/api-docs/**").permitAll()
+                                "/status",
+                                "/health",
+                                "/register",
+                                "/activate",
+                                "/login",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
