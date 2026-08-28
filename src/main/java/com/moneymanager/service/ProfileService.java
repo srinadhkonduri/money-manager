@@ -7,6 +7,8 @@ import com.moneymanager.entity.ProfileEntity;
 import com.moneymanager.repositories.ProfileRepository;
 import com.moneymanager.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -88,6 +91,15 @@ public class ProfileService {
     }
 
 
+    // deleting the profile with mail id
+    public ResponseEntity<String> deleteProfileByEMail(String email){
+        Optional<ProfileEntity> profile = profileRepository.findByEmail(email);
+        if (profile.isPresent()){
+            profileRepository.deleteByEmail(email);
+            return ResponseEntity.ok("profile deleted successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Profile not found with email : " + email);
+    }
     // ============================================================
     // DTO -> ENTITY
     // ============================================================

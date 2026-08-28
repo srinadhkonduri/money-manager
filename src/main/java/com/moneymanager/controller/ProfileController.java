@@ -54,6 +54,13 @@ public class ProfileController {
     }
 
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteProfileByEmail(String email){
+        profileService.deleteProfileByEMail(email);
+        return ResponseEntity.noContent().build();
+    }
+
+
     // test the JWT
     @GetMapping("/test")
     public String test(){
