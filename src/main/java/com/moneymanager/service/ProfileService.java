@@ -6,6 +6,7 @@ import com.moneymanager.dto.ProfileDto;
 import com.moneymanager.entity.ProfileEntity;
 import com.moneymanager.repositories.ProfileRepository;
 import com.moneymanager.util.JwtUtil;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,13 +93,11 @@ public class ProfileService {
 
 
     // deleting the profile with mail id
-    public ResponseEntity<String> deleteProfileByEMail(String email){
+    @Transactional
+    public void deleteProfileByEMail(String email){
         Optional<ProfileEntity> profile = profileRepository.findByEmail(email);
-        if (profile.isPresent()){
-            profileRepository.deleteByEmail(email);
-            return ResponseEntity.ok("profile deleted successfully");
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Profile not found with email : " + email);
+        profile.ifPresent(profileRepository::delete);
+        ResponseEntity.status(HttpStatus.NOT_FOUND).body("Profile not found with email : " + email);
     }
     // ============================================================
     // DTO -> ENTITY

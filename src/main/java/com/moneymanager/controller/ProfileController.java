@@ -54,8 +54,8 @@ public class ProfileController {
     }
 
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteProfileByEmail(String email){
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<Void> deleteProfileByEmail(@PathVariable String email){
         profileService.deleteProfileByEMail(email);
         return ResponseEntity.noContent().build();
     }
