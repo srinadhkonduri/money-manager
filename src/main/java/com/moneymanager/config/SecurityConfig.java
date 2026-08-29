@@ -42,7 +42,6 @@ public class SecurityConfig {
                                 "/status",
                                 "/health",
                                 "/register",
-                                "/activate",
                                 "/login",
                                 "/test",
                                 "/swagger-ui/**",

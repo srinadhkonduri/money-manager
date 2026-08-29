@@ -3,49 +3,76 @@ package com.moneymanager.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender javaMailSender;
+    private final JavaMailSender mailSender;
 
-    public EmailService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
-
-    @Value("${spring.mail.username}")
-    private String fromEmail;
-
-    public void sendEmail(String to, String subject, String htmlBody) {
+    public void sendWelcomeEmail(String to, String fullName){
 
         try {
 
-            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessage message =
+                    mailSender.createMimeMessage();
 
             MimeMessageHelper helper =
-                    new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                    new MimeMessageHelper(message, true);
 
-            helper.setFrom(fromEmail);
             helper.setTo(to);
-            helper.setSubject(subject);
+            helper.setSubject("Welcome to Money Manager");
 
-            // VERY IMPORTANT:
-            // true tells JavaMail that the body is HTML.
-            helper.setText(htmlBody, true);
+            String html = """
+                <!DOCTYPE html>
+                <html>
+                <body>
 
-            javaMailSender.send(mimeMessage);
+                    <h2>Welcome to Money Manager, %s!</h2>
+
+                    <p>
+                        Your account has been successfully created.
+                    </p>
+
+                    <p>
+                        Your account is already active.
+                        You can log in and start using Money Manager.
+                    </p>
+
+                    <p>
+                        Thank you for joining us!
+                    </p>
+
+                </body>
+                </html>
+                """.formatted(fullName);
+
+            helper.setText(html, true);
+
+            mailSender.send(message);
 
         } catch (MessagingException e) {
 
             throw new RuntimeException(
-                    "Failed to send email to " + to,
+                    "Failed to send welcome email",
                     e
             );
         }
+
+    }
+
+
+    public void sendDailyRemainder(String to, String subject, String body){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(to);
+        mailMessage.setSubject(subject);
+        mailMessage.setText(body);
+
+        mailSender.send(mailMessage);
     }
 }

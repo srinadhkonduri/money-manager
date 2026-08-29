@@ -46,8 +46,6 @@ public class ProfileService {
         this.jwtUtil = jwtUtil;
     }
 
-    @Value("${app.activation.url}")
-    private String activationUrl;
 
     // ============================================================
     // REGISTER PROFILE
@@ -58,36 +56,16 @@ public class ProfileService {
         // 1. Convert DTO to Entity
         ProfileEntity newProfile = toEntity(profileDto);
 
-        // 2. Generate activation token
-        newProfile.setActivationToken(UUID.randomUUID().toString());
+        // new accounts should generally be inactive
+        newProfile.setIsActive(true);
 
         // 3. Save profile to database
         newProfile = profileRepository.save(newProfile);
 
-        // 4. Create activation link
-        String activationLink = activationUrl+
-                "/api/v1.0/activate?token="
-                        + newProfile.getActivationToken();
+        // sending the welcome email
+        emailService.sendWelcomeEmail(newProfile.getFullName(), newProfile.getEmail());
 
-        // 5. Create email
-        String subject = "Activate your Money Manager account";
-
-        String body =
-                "Hello " + newProfile.getFullName() + ",\n\n"
-                        + "Thank you for registering with Money Manager.\n\n"
-                        + "Please click the following link to activate your account:\n\n"
-                        + activationLink
-                        + "\n\n"
-                        + "If you did not create this account, please ignore this email.";
-
-        // 6. Send activation email
-        emailService.sendEmail(
-                newProfile.getEmail(),
-                subject,
-                body
-        );
-
-        // 7. Convert Entity back to DTO
+        // 6. Convert Entity back to DTO
         return toDTO(newProfile);
     }
 

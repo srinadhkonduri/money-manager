@@ -201,7 +201,10 @@ public class NotificationService {
 
                             "</body>" +
                             "</html>";
-            emailService.sendEmail(profile.getEmail(), "Daily Remainder : Add your income and expenses", emailBody);
+            emailService.sendDailyRemainder(profile.getEmail(),
+                    "money manager - daily expense remainder",
+                    emailBody
+            );
             log.info("Job Completed : SendDailyIncomeExpenseRemainder()");
         }
     }
@@ -495,9 +498,8 @@ public class NotificationService {
                     .append("</body>")
                     .append("</html>");
 
-            emailService.sendEmail(
-                    profile.getEmail(),
-                    "Money Manager - Daily Expense Summary",
+            emailService.sendDailyRemainder(profile.getEmail(),
+            "money manager - daily expense remainder",
                     body.toString()
             );
         }
