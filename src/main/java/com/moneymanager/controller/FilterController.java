@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/filter")
+@RequestMapping("api/v1.0/filter")
 @RequiredArgsConstructor
 public class FilterController {
 

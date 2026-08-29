@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1.0")
 public class ProfileController {
 
     private final ProfileService profileService;
