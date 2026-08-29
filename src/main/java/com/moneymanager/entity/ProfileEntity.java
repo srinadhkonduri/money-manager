@@ -46,6 +46,7 @@ public class ProfileEntity {
     private String activationToken;
 
 
+
     @PrePersist
     public void prePersist(){
         if (this.isActive == null){
