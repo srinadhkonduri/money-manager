@@ -61,11 +61,7 @@ public class ProfileService {
 
         // 3. Save profile to database
         newProfile = profileRepository.save(newProfile);
-
-        // sending the welcome email
-        emailService.sendWelcomeEmail(newProfile.getFullName(), newProfile.getEmail());
-
-        // 6. Convert Entity back to DTO
+        // 4. Convert Entity back to DTO
         return toDTO(newProfile);
     }
 
